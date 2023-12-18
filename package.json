@@ -1,0 +1,74 @@
+{
+  "name": "walletproject",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "start:test": "tsc && vite --mode test",
+    "start:demo": "tsc && vite --mode demo",
+    "build": "tsc && vite build",
+    "build:test": "tsc && vite build --mode test",
+    "build:demo": "tsc && vite build --mode demo",
+    "build:prod": "tsc && vite build --mode prod",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@loadable/component": "^5.15.3",
+    "@vitejs/plugin-legacy": "^5.2.0",
+    "antd": "^5.12.2",
+    "axios": "^1.6.2",
+    "dayjs": "^1.11.10",
+    "loadsh": "^0.0.4",
+    "mobx": "^6.9.0",
+    "mobx-react": "^7.5.3",
+    "postcss-preset-env": "^9.3.0",
+    "qs": "^6.11.2",
+    "react": "^18.2.0",
+    "react-activation": "^0.12.4",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.11.2",
+    "react-scroll-parallax": "^3.4.2",
+    "sa-sdk-javascript": "^1.25.4"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.202",
+    "@types/qs": "^6.9.10",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-react-refresh": "^1.3.6",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "typescript": "^5.2.2",
+    "lint-staged": "^15.2.0",
+    "postcss": "^8.4.32",
+    "postcss-cssnext": "^3.1.1",
+    "prettier": "^3.1.1",
+    "rollup-plugin-react-scoped-css": "^0.8.4",
+    "stylelint": "^16.0.2",
+    "stylelint-config-standard": "^35.0.0",
+    "vite": "^5.0.8"
+  },
+  "files": [
+    "./src"
+  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "author": "2442845618@qq.com",
+  "description": ""
+}
