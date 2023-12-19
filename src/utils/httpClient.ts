@@ -4,6 +4,8 @@ import { ResultEnum } from "@/enums/httpEnum";
 import { message } from "antd";
 import { checkStatus } from "./helper/checkStaus";
 import { ResultData } from "./helper/interface";
+import { showFullScreenLoading, tryHideFullScreenLoading } from "@/config/serviceLoading";
+import NProgress from "@/config/nprogress";
 
 
 // 封装网络请求库
@@ -12,19 +14,11 @@ interface HttpRequestOptions {
     baseURL: string;
     headers?: Record<string, string>;
     timeout: number;
+    withCredentials?:boolean;
     beforeRequestHandler?: (config: AxiosRequestConfig) => AxiosRequestConfig
   }
   
 const axiosCanceler = new AxiosCanceler()
-// const config = {
-// 	// 默认地址请求地址，可在 .env 开头文件中修改
-// 	baseURL: import.meta.env.VITE_API_URL as string,
-// 	// 设置超时时间（10s）
-// 	timeout: 10000,
-// 	// 跨域时候允许携带凭证
-// 	withCredentials: true
-// };
-
 
 class RequestHttp {
     service: AxiosInstance;
@@ -36,16 +30,17 @@ class RequestHttp {
         this.service = axios.create(config)
 
         /**
-         * 请求拦截器 
+         * @description 请求拦截器 
          */
         this.service.interceptors.request.use((config: AxiosRequestConfig) => {
+            NProgress.start();
             // 将当前请求添加到 pendig 中
             axiosCanceler.addPending(config);
 
             // * 如果当前请求不需要显示 loading,在api服务中通过指定的第三个参数: { headers: { noLoading: true } }来控制不显示loading，参见loginApi
             // config.headers!.noLoading || showFullScreenLoading(); store.getState().global.token;
-            const token: string = ""
-            return { ...config, headers: { ...config.headers, "x-access-token": token } }  as  AxiosRequestConfig
+            config.headers!.noLoading || showFullScreenLoading();
+            return config;
         },
             (error: AxiosError) => {
                 return Promise.reject(error)
@@ -58,8 +53,11 @@ class RequestHttp {
         this.service.interceptors.response.use((response: AxiosResponse) => {
             const { data, config } = response;
 
+            NProgress.done();
+
             // 请求结束后移除本次请求
             axiosCanceler.removePending(config);
+            tryHideFullScreenLoading();
             // 登录失败
             if (data.code == ResultEnum.OVERDUE) {
                 // setToken("") 清空token
@@ -77,8 +75,8 @@ class RequestHttp {
         },
             async (error: AxiosError) => {
                 const { response } = error
-                // NProgress.done();
-                // tryHideFullScreenLoading();
+                NProgress.done();
+                tryHideFullScreenLoading();
                 // 请求超时单独判断，请求超时没有 res
                 if (error.message.indexOf("timeout") !== -1) message.error("请求超时，请稍后再试");
                 // 根据响应的错误状态码，做不同的处理
