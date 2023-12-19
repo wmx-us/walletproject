@@ -32,7 +32,7 @@ class RequestHttp {
         /**
          * @description 请求拦截器 
          */
-        this.service.interceptors.request.use((config: AxiosRequestConfig) => {
+        this.service.interceptors.request.use((config) => {
             NProgress.start();
             // 将当前请求添加到 pendig 中
             axiosCanceler.addPending(config);

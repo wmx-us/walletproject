@@ -6,10 +6,10 @@ let needLoadingRequestCount = 0;
 // * 显示loading
 export const showFullScreenLoading = () => {
 	if (needLoadingRequestCount === 0) {
-		let dom = document.createElement("div");
+		const dom = document.createElement("div");
 		dom.setAttribute("id", "loading");
 		document.body.appendChild(dom);
-		ReactDOM.createRoot(dom).render(<Loading /> as any); 
+		ReactDOM.createRoot(dom).render(<Loading/>); 
 	}
 	needLoadingRequestCount++;
 };
