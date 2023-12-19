@@ -6,10 +6,10 @@ const LayoutHeader =() => {
     return (
         <Header>
             <div className="header-Lf">
-                111
+
             </div>
             <div className="header-ri">
-                <span className="username">Hooks</span>
+                <span className="username"></span>
             </div>
         </Header>
     )

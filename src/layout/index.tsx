@@ -15,9 +15,9 @@ const LayoutIndex = () => {
         <Layout>
             <LayoutHeader />
             <Content>
-                <Outlet/>
+                <Outlet />
             </Content>
-            <LayoutFooter/>
+            <LayoutFooter />
         </Layout>
     )
 }

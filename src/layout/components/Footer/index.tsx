@@ -1,17 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import "./index.scoped.css"
 
-const LayoutFooter =(props:any) => {
-    const {themeConfig} = props
+const LayoutFooter =() => {
+    // const {themeConfig} = props
 
     return (
-        <>
-        {!themeConfig.footer && (
-            <div className="footer">
+        // <>
+        // {!themeConfig.footer && (
+        //     <div className="footer">
+        //         <a target="_blank" rel="noreferrer"> 2022 © Hooks-Admin By Hooks Technology.</a>
+        //     </div>
+        // )}
+        // </>
+        <div className="footer">
                 <a target="_blank" rel="noreferrer"> 2022 © Hooks-Admin By Hooks Technology.</a>
             </div>
-        )}
-        </>
     )
 }
 
