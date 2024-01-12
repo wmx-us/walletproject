@@ -127,7 +127,7 @@ type TypeConfig = {
       const webStorage = window[`${type}Storage`],
         get = (key: string) => {
           const item = webStorage.getItem(key);
-          return item ? item : null;
+          return item ? this.decode(item) : null;
         };
   
       return {

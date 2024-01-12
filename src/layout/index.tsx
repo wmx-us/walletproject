@@ -14,7 +14,9 @@ const LayoutIndex = () => {
     return (
         <Layout>
             <LayoutHeader />
-            <Content>
+            <Content style={{
+                minHeight: "calc(100vh - 113px)"
+            }}>
                 <Outlet />
             </Content>
             <LayoutFooter />

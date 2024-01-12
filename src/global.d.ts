@@ -21,10 +21,9 @@ type ProfileType = {
 type typeDictResponse = Record<string, typeDict[]>;
 
 type typePagination = {
-  pageSize: number;
-  pageNo?: number;
+  pageSize?: number,
+  page?:number,
   total?: number;
-  pageNum?: number;
 };
 
 interface LooseObject {

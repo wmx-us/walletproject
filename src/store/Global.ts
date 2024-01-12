@@ -2,7 +2,10 @@
 import { observable, action, makeAutoObservable } from "mobx";
 // import { LocalStorage } from "@/utils";
 // import { getList } from "@/service";
-
+import FingerprintJS from '@fingerprintjs/fingerprintjs'
+import { LocalStorage } from "@/utils";
+import type { LoginPswResponseType } from "@/service/loginServes/loginServes.d";
+import { apiLogout } from "@/service/user/api";
 export type AncestorsReturns = {
     currentKeys: string[];
     currentMenus: MenuType[];
@@ -20,66 +23,51 @@ class GlobalStore {
     state: {
         // cdn: string;
         // HD_APP_PREFIX: string;
-        token: Nullable<string>;
+        token?: string;
         menus: Nullable<MenuType[]>;
         pathname: Nullable<string>;
+        visitorId: string
+        userInfo?: LoginPswResponseType
     } = {
             // cdn: import.meta.env.PROJECT_NUWA_CDN, // 从环境变量读取的 CDN 地址
             // HD_APP_PREFIX: import.meta.env.PROJECT_ENV_PREFIX, // 从环境变量读取的 CDN 地址
-            token: "", // 用户token
             menus: null, // 从接口获取的菜单
             pathname: null, // 当前跳转的path
+            visitorId: "",
         };
 
 
 
     constructor() {
         makeAutoObservable(this);
-        // this.init();
+        this.getUserInfo();
         // this.initToken();
     }
 
     @action
-    private initToken() {
-        // const result: any = {
-        //   token:
-        //     "eyJhbGciOiJIUzI1NiJ9.eyJ0ZW5hbnRJZCI6IjE2MjYwMzcwNDMxOTgwOTEyNjUiLCJleHAiOjE2ODgwMDQ0MjEsInVzZXJJZCI6IjE2MjYwMzcyOTM2Mzk5ODMxMDUiLCJhY2NvdW50IjoienlxeSJ9.98sMH50LwcFS9ZsaBogHEoZFjyXC4DYpO0EHprQbuRQ",
-        //   "X-Client-Type": "saas_web",
-        // };
-        // localStorage.setItem("headers", JSON.stringify(result));
-        // if (localStorage.getItem("result")) {
-        //   console.log(
-        //     "233",
-        //     JSON.parse(localStorage.getItem("result") as string).token
-        //   );
-        // }
-
-        // this.token = result.token;
-
+    async getUUid() {
+        const fpPromise = FingerprintJS.load()
+        const fp = await fpPromise
+        const result = await fp.get()
+        this.state.visitorId = result.visitorId
+        // LocalStorage.set("UUID",result)
     }
 
     @action
-    private init(): void {
-        // this.state.token = LocalStorage.getItem("token") as string;
+    private getUserInfo(): void {
+        const userInfo = LocalStorage.getItem("userInfo") as LoginPswResponseType
+        if (userInfo) {
+            this.state.userInfo = userInfo
+            this.state.token = userInfo.token
+        }
     }
-
-    // 获取拍平的菜单
-    // @action
-    // get flatMenus(): MenuType[] {
-    //   return flatDeep((this.state.menus ?? []) as MenuType[], 5) ?? [];
-    // }
-
-    // 获取默认的菜单
-
-    // get defaultMenu() {
-    //     return this.getNestedMenu(this.state.menus);
-    // }
-
     @action
-    updateToken(): void {
-        // this.state.token = token;
-        // LocalStorage.set("token", token);
+    initUserInfo(userInfo: LoginPswResponseType): void {
+        this.state.userInfo = { ...this.state.userInfo, ...userInfo }
+        this.state.token = userInfo?.token;
+        LocalStorage.set("userInfo", userInfo)
     }
+
     @action
     updateMenus(menus: Nullable<MenuType[]>): void {
         this.state.menus = menus;
@@ -108,6 +96,19 @@ class GlobalStore {
         this.state.menus = null;
         // LocalStorage.remove("token");
         // LocalStorage.remove("menus");
+    }
+
+    @action
+    logout = async (): Promise<void> => {
+        try {
+            await apiLogout()
+            delete this.state.userInfo
+            delete this.state.token
+            LocalStorage.remove('userInfo')
+        } catch (error) {
+            return Promise.reject(error)
+        }
+
     }
 }
 

@@ -7,23 +7,23 @@ import type { ConfigEnv } from "vite";
 import { proxyApi, apiAddress } from "./src/config";
 import postcssPresetEnv from "postcss-preset-env";
 import { reactScopedCssPlugin } from "rollup-plugin-react-scoped-css";
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }: ConfigEnv) => {
   const env = loadEnv(mode, path.resolve(process.cwd(), "env"), "PROJECT_");
-
   return {
     envDir: "env",
     envPrefix: "PROJECT_",
     server: {
-      port: 3001,
-      host: "0.0.0.0",
+      port: 8080,
+      host: '0.0.0.0',
       proxy: {
         [proxyApi]: {
-          target: apiAddress,
+          target: env.PROJECT_ENV_PREFIX,
           changeOrigin: true,
           cookieDomainRewrite: "",
           secure: false,
-          rewrite: (p) => p.replace(/^\/api/, ""),
+          rewrite: (p) => p.replace(/^\/insland/, "/insland"),
         }
       }
     },

@@ -1,0 +1,22 @@
+.ant-anchor-wrapper {
+  flex: 1 !important;
+}
+.ant-anchor-wrapper-horizontal {
+  flex: 1;
+}
+.ant-anchor-wrapper-horizontal .ant-anchor {
+  flex: 1;
+  justify-content: space-between;
+}
+.ant-anchor-wrapper-horizontal .ant-anchor .ant-anchor-ink {
+  opacity: 0;
+}
+.ant-anchor-wrapper .ant-anchor .ant-anchor-link {
+  flex: 1;
+}
+.ant-modal {
+  padding: 20px 5px;
+  background: url("../../assets/images/modalBg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

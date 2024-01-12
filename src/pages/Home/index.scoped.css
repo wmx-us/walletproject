@@ -1,0 +1,641 @@
+.homeContentBG {
+  background: url("../../assets/images/bgContent.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.container {
+  /* height: 516px; */
+  display: flex; /* 设置为 Flex 容器 */
+  align-items: center; /* 垂直居中子元素 */
+  position: relative;
+  /* background: url("../../assets/images/body_bg_1.png");
+  background-size: cover;
+  background-repeat: no-repeat; */
+  .title {
+    font-family: Alibaba PuHuiTi 2;
+    font-size: 40px;
+    font-weight: 900;
+    line-height: 77px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: #ffffff;
+
+    .platfrom {
+      background: linear-gradient(
+        89deg,
+        #a272ff 54.38%,
+        #be3fff 72.63%,
+        #fff735 90.17%
+      );
+      -webkit-background-clip: text; /* 为了兼容WebKit内核浏览器 */
+      -moz-background-clip: text; /* 为了兼容Firefox浏览器 */
+      background-clip: text; /* 标准属性 */
+      color: transparent; /* 让文字颜色透明 */
+    }
+  }
+}
+.container-Box {
+  /* position: absolute; */
+  display: flex;
+  justify-content: center;
+  /* opacity: 0;
+  transition: opacity 0.5s ; */
+}
+.container-text {
+  width: 100%;
+  height: 520px;
+  margin-top: -520px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.cardTabs {
+  max-width: 1400px;
+  min-width: 1200px;
+  .ant-space {
+    display: flex;
+    .ant-space-item {
+      flex: 1;
+    }
+  }
+  .cardAnchor {
+    min-width: 200px;
+    flex: 1;
+    height: 105px;
+    border-radius: 5px;
+    border: 1px solid rgba(85, 46, 125, 1);
+    background: rgb(8, 0, 13, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 25px;
+    transition-property: all;
+    transition-duration: 0.2s;
+  }
+  .cardAnchor:hover {
+    background: linear-gradient(180deg, #08000d 60%, #2f094d 100%);
+    border-bottom: 3px solid #b961ff;
+  }
+  .active {
+    background: linear-gradient(180deg, #08000d 60%, #2f094d 100%);
+    border-bottom: 3px solid #b961ff;
+  }
+  .anchorId {
+    font-family: PingFang SC;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #ffffff;
+    padding-left: 25px;
+  }
+}
+
+.mask {
+  position: relative;
+  /* background: url("../../assets//images/Mask.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 473px;
+  display: flex; */
+  /* min-width: 1200px; */
+  .mask-left {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px 30px;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    .title {
+      font-family: PingFang SC;
+      font-size: 30px;
+      font-weight: 400;
+      line-height: 42px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #ffffff;
+      transition: all 1s ease;
+      opacity: 0;
+      /* transform: translateY(100px); */
+    }
+    .explain {
+      font-family: PingFang SC;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #ffffff;
+      margin-top: 35px;
+      transition: all 1s ease;
+      opacity: 0;
+      /* transform: translateY(100px); */
+    }
+    .btn {
+      display: flex;
+      margin-top: 40px;
+      transition: all 1s ease;
+      opacity: 0;
+      /* transform: translateY(100px); */
+      .btn_1 {
+        width: 76px;
+        height: 30px;
+        border-radius: 53px;
+        border: 1px solid #a7a7a7;
+        text-align: center;
+        line-height: 30px;
+        color: #a7a7a7;
+        margin: 4px;
+      }
+    }
+  }
+}
+
+.serves {
+  font-family: PingFang SC;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 42px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: white;
+}
+
+.banner-item:hover {
+  /* transform: scale(1.02); */
+  transform: translateY(-10px);
+  /* box-shadow: rgba(255, 255, 255, 0.3) 0px 4px 20.5px 0px; */
+}
+.banner-item {
+  min-width: 260px;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+  flex: 1;
+  display: flex;
+  min-height: 475px;
+  /* width: 286px; */
+  border: 1px solid #272727;
+  border-radius: 20px;
+  background: rgba(6, 11, 42, 0.2);
+  padding: 35px;
+  flex-direction: column;
+  /* align-items: center; */
+  box-sizing: border-box;
+  margin: 0 8px;
+  height: 100%;
+  .banner-title {
+    color: white;
+    margin-top: 29px;
+  }
+  .banner-content {
+    color: white;
+    margin-top: 10px;
+    font-size: 12px;
+    line-height: 200%;
+  }
+}
+.operation {
+  font-family: PingFang SC;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 42px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: white;
+  transition: all 1s ease;
+  opacity: 0;
+  transform: translateY(100px);
+}
+.operation-explain {
+  font-family: PingFang SC;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: white;
+  transition: all 1s ease;
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+.operationBanner-item {
+  display: flex;
+  flex: 1;
+  margin: 0 10px;
+  min-width: 480px;
+  height: 217px;
+  border: 1px solid #272727;
+  border-radius: 20px;
+  align-items: center;
+  background: #2f043933;
+  box-shadow: 0px 4px 77.5px 0px #16002c4d inset;
+  transition: all 1s ease;
+  opacity: 0;
+  transform: translateY(100px);
+  .operationBanner-content {
+    padding-left: 44px;
+    .operationBanner-content-btn {
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      cursor: pointer;
+      border-radius: 9px;
+      height: 46px;
+      line-height: 46px;
+      width: 175px;
+      background: linear-gradient(180deg, #241545 0%, #4b328e 100%),
+        linear-gradient(180deg, #c7a4ff 0%, rgba(255, 255, 255, 0.4) 100%);
+      color: white;
+      text-align: center;
+    }
+    .operationBanner-content-btn:hover {
+      transform: translateY(-8px);
+      transition: transform 0.5s ease-in-out;
+      background: linear-gradient(180deg, #562fad 0%, #4b328e 100%),
+        linear-gradient(180deg, #c7a4ff 0%, rgba(255, 255, 255, 0.4) 100%);
+    }
+    .operationBanner-content-btn:not(:hover) {
+      transform: translateY(0px);
+      transition: transform 0.5s ease-in-out;
+    }
+  }
+  .operationBanner-icon {
+    margin-left: 65px;
+  }
+}
+.operationBanner-content h2 {
+  font-family: PingFang SC;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 34px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: white;
+}
+
+.operationBanner-content h4 {
+  font-family: PingFang SC;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: white;
+}
+.linerGradual {
+  /* background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 1) 33%,
+    rgba(255, 255, 255, 0) 66%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  letter-spacing: -0.5px;
+  background-size: 300% 100%;
+  background-clip: clip;
+  -webkit-background-clip: clip;
+  color: transparent;
+  background-position-x: calc(100% - var(--percentage)); */
+  /* background: white; */
+  opacity: 1;
+}
+.presentation {
+  display: flex;
+  /* height: 621px; */
+  justify-content: space-around;
+  min-width: 450px;
+  transition: all 1s ease;
+  opacity: 0;
+  /* transform: translateY(100px); */
+
+  .presentation-title h2 {
+    font-family: PingFang SC;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 60px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: white;
+  }
+  .presentation-ele {
+    padding: 16px 0px;
+    transition: all 1s ease;
+    opacity: 0;
+    transform: translateY(100px);
+
+    .linerGradual {
+      background-image: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 1) 33%,
+        rgba(255, 255, 255, 0) 66%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      letter-spacing: -0.5px;
+      background-size: 300% 100%;
+      background-clip: clip;
+      -webkit-background-clip: clip;
+      color: transparent;
+      background-position-x: calc(100% - var(--percentage));
+    }
+    .presentation-item {
+      display: flex;
+      font-family: PingFang SC;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 36px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: white;
+    }
+    .presentation-item span {
+      padding: 0 15px;
+    }
+    .presentation-content {
+      font-family: PingFang SC;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: white;
+      padding: 0px 40px;
+    }
+  }
+}
+
+.inherited {
+  position: relative;
+  min-width: 480px;
+  transition: all 1s;
+  opacity: 0;
+  .bg-layout {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 12% 10%;
+    box-sizing: border-box;
+    .item {
+      width: 36%;
+      background: #ffffff;
+      height: 18%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 400;
+      border-radius: 18px;
+      border: 1px solid #ffffff;
+      box-sizing: border-box;
+      transition-property: background, color;
+      transition-duration: 0.6s;
+    }
+    .item:hover {
+      background: linear-gradient(180deg, #ad99ff 0%, #3d23a7 100%);
+      /* background: #ad99ff; */
+      color: #ffffff;
+      cursor: pointer;
+    }
+    .active {
+      background: linear-gradient(180deg, #ad99ff 0%, #3d23a7 100%);
+      color: #ffffff;
+    }
+  }
+}
+
+.online {
+  font-family: PingFang SC;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 42px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: white;
+  transition: all 1s ease;
+  opacity: 0;
+  transform: translateY(60px);
+}
+.online span {
+  color: #be3fff;
+}
+.transtionCarourel {
+  transition: all 1s ease;
+  opacity: 0;
+  transform: translateY(60px);
+}
+.carousel {
+  display: flex !important;
+  height: 444px;
+  border: 1px solid #272727;
+  box-shadow: 0px 4px 77.5px 0px #16002c4d inset;
+  background: #2f043933;
+  border-radius: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+}
+
+.carousel-le {
+  max-width: 700px;
+}
+.carousel-le h3 {
+  font-family: PingFang SC;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 34px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: white;
+}
+.carousel-le h4 {
+  font-family: PingFang SC;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 200%;
+  letter-spacing: 0em;
+  text-align: left;
+  color: white;
+}
+
+.carousel-le .carousel-btn {
+  width: 158px;
+  border-radius: 5px;
+  height: 44px;
+}
+.arrow {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  top: 0;
+  justify-content: space-between;
+  transition: all 1s ease;
+  opacity: 0;
+  transform: translateY(100px);
+  .arrow-le {
+    font-size: 40px;
+    background: #9f9f9f;
+    border-radius: 20px;
+    color: #ffffff;
+    margin-left: -20px;
+    transition:
+      color 0.3s,
+      transform 0.3s; /* 添加过渡效果，分别对应颜色和大小变化 */
+    /* box-shadow: 0px 0px 0px 1px #ffffff; */
+  }
+  .arrow-ri {
+    font-size: 40px;
+    background: #9f9f9f;
+    border-radius: 20px;
+    color: #ffffff;
+    margin-right: -20px;
+    transition:
+      color 0.3s,
+      transform 0.3s;
+    /* box-shadow: 0px 0px 0px 1px #ffffff; */
+  }
+  .arrow-le:hover {
+    color: #3e53ff;
+    background: white;
+    transform: scale(1.05);
+    /* box-shadow: 0px 0px 0px 2px #3e53ff; */
+  }
+  .arrow-ri:hover {
+    color: #3e53ff;
+    background: white;
+    transform: scale(1.05);
+    /* box-shadow: 0px 0px 0px 2px #3e53ff; */
+  }
+}
+
+.channel {
+  position: absolute;
+  text-align: center;
+  top: 114px;
+  transition: all 1s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+.channel h2 {
+  font-family: PingFang SC;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #ffffff;
+}
+.channel h5 {
+  font-family: PingFang SC;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: #ffffff;
+}
+
+.channelBtn {
+  height: 40px;
+  line-height: 40px;
+  border-radius: 4px;
+  width: 150px;
+  min-width: 120px;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(275.57deg, #4715c1 22.15%, #5e62ff 90.89%);
+  transition: all 1s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.modalOpen {
+  font-family: PingFang SC;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 34px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+.stepTitle {
+  font-family: PingFang SC;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: white;
+}
+.rightContent {
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 55px;
+  .left-solid {
+    border: 1px solid #402181;
+    /* angle: -90 deg; */
+  }
+}
+
+/* 提交首页弹框的css */
+
+.submitform {
+  background: linear-gradient(180deg, #241545 0%, #4b328e 100%),
+    linear-gradient(180deg, #c7a4ff 0%, rgba(255, 255, 255, 0.4) 100%);
+  border: 1px solid #c7a4ff;
+  border-radius: 9px;
+  height: 46px;
+  width: 175px;
+}
+
+.rightContent-layout {
+  border-left: 1px dashed #402181;
+  /* padding: 0px 10px; */
+
+  .rightContent-layout-item {
+    display: flex;
+    margin-left: -10px;
+    .label {
+      min-width: 20px;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(180deg, #3e1e7e 4.91%, #5f50b8 100%);
+      font-family: PingFang SC;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 20px;
+      text-align: center;
+      border-bottom-right-radius: 5px;
+      margin: 2px 7px 2px 0px;
+    }
+    .text {
+      font-family: PingFang SC;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0em;
+      text-align: left;
+    }
+  }
+}
+
+/* 服务理念 */
+.serves-content {
+  opacity: 0;
+  transition:
+    transform 0.8s,
+    opacity 2s;
+  transform: translateY(100px);
+}

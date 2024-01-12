@@ -1,0 +1,32 @@
+.title {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+}
+.layout {
+  flex: 1;
+  background: linear-gradient(0deg, #0f1736, #0f1736), linear-gradient(0deg, #5e62ff, #5e62ff);
+  border: 1px solid #5e62ff;
+  .label {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .GAS {
+    display: flex;
+    align-items: flex-end;
+    .number {
+      font-size: 42px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 42px;
+      margin-right: 5px;
+    }
+    .unit {
+      font-family: Roboto;
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.9);
+    }
+  }
+}

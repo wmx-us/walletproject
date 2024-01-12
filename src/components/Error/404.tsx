@@ -1,7 +1,7 @@
 import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
 // import { HOME_URL } from "@/config/config";
-import "./index.less";
+import "./index.scoped.css";
 
 const NotFound = () => {
 	const navigate = useNavigate();
@@ -12,7 +12,7 @@ const NotFound = () => {
 		<Result
 			status="404"
 			title="404"
-			subTitle="Sorry, the page you visited does not exist."
+			subTitle="对不起，您访问的页面不存在！"
 			extra={
 				<Button type="primary" onClick={goHome}>
 					Back Home

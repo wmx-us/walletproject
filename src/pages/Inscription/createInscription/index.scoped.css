@@ -1,0 +1,38 @@
+.ant-segmented {
+    background-color: #222531;
+    padding: 5px;
+}
+.selectBtn .btn {
+    width: 289px;
+    height: 137px;
+    border-radius: 20px;
+    /* background: #5E62FF; */
+    .btn-type {
+        font-weight: 400;
+        font-size: 18px;
+    }
+    .btn-num span {
+        font-weight: 500;
+        font-size: 30px;
+    }
+}
+.cost {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 35px;
+}
+.cost span {
+    font-size: 30px;
+    font-weight: 500;
+}
+.payOrder {
+    min-width: 850px;
+    border-radius: 75px;
+    height: 60px;
+}
+
+.ant-Row {
+    .ant-form-item {
+        margin-bottom: 25px
+    }
+}

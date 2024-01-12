@@ -26,7 +26,6 @@ export function useInject<K extends keyof GlobalStore>(
         if (args && args.length) {
             c = inject(...args)(observer(comp));
         } else {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             c = comp as any;
         }
         return useMemo ? memo(c) : c;

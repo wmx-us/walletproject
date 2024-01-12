@@ -1,0 +1,11 @@
+
+.inscript {
+    color: white;
+    font-size: 45px;
+    white-space:nowrap;
+}
+.ant-segmented {
+    background-color: #222531;
+    padding: 5px;
+    min-width: 450px;
+}

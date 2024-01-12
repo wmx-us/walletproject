@@ -1,7 +1,7 @@
 import { Button, Result } from "antd";
 import { useNavigate } from "react-router-dom";
 // import { HOME_URL } from "@/config/config";
-import "./index.less";
+import "./index.scoped.css";
 
 const NotAuth = () => {
 	const navigate = useNavigate();
@@ -12,7 +12,7 @@ const NotAuth = () => {
 		<Result
 			status="403"
 			title="403"
-			subTitle="Sorry, you are not authorized to access this page."
+			subTitle="对不起，您没有权限访问此页面。"
 			extra={
 				<Button type="primary" onClick={goHome}>
 					Back Home

@@ -1,0 +1,33 @@
+.title {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+}
+.user-info {
+  .name {
+    font-family: Segoe UI;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  .id {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+.acc-label {
+  display: flex;
+  align-items: center;
+  .icon {
+    width: 12px;
+  }
+  .text {
+    font-family: PingFang SC;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 3px;
+  }
+}

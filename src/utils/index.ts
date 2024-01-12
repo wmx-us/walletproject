@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { RouteObject } from "@/router/interface";
+
 /* eslint-disable @typescript-eslint/ban-types */
 export * from "./webStorage";
 export * from "./http"
@@ -140,3 +143,21 @@ export function isNullAndUnDef(val: unknown): val is null | undefined {
 export function isNullOrUnDef(val: unknown): val is null | undefined {
 	return isUnDef(val) || isNull(val);
 }
+
+/**
+ * @description 递归查询对应的路由
+ * @param {String} path 当前访问地址
+ * @param {Array} routes 路由列表
+ * @returns array
+ */
+export const searchRoute = (path: string, routes: RouteObject[] = []): RouteObject => {
+	let result: RouteObject = {};
+	for (const item of routes) {
+		if (item.path === path) return item;
+		if (item.children) {
+			const res = searchRoute(path, item.children);
+			if (Object.keys(res).length) result = res;
+		}
+	}
+	return result;
+};

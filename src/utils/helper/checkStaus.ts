@@ -7,6 +7,9 @@ import { message } from "antd";
  */
 export const checkStatus = (status: number): void => {
 	switch (status) {
+		// case 200:
+		// 	message.success("成功！");
+		// 	break;
 		case 400:
 			message.error("请求失败！请您稍后重试");
 			break;

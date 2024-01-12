@@ -1,0 +1,43 @@
+.title {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.label {
+  color: "rgba(255,255,255.9)";
+  font-size: 16px;
+  font-weight: 400;
+}
+.sub-title {
+  color: "rgba(255,255,255.9)";
+  font-size: 12px;
+  font-weight: 400;
+}
+.item {
+  padding: 0 40px;
+  height: 95px;
+  .ri {
+    display: flex;
+    align-items: flex-end;
+    .gas {
+      font-size: 30px;
+      font-weight: 500;
+      line-height: 38px;
+    }
+    .gas-unit {
+      font-size: 18px;
+      font-weight: 400;
+    }
+  }
+}
+.item-all {
+  height: 115px;
+  .label {
+    font-size: 24px;
+  }
+  .gas {
+    font-size: 62px !important;
+    line-height: 62px !important;
+  }
+}

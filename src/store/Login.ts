@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { action, makeAutoObservable, observable } from "mobx";
 
 class Login {
-    
+
     @observable
     state: {
+        isRegister: boolean
 
-        current: number;
     } = {
-            current: 0,
+            isRegister: true
 
         };
 
@@ -17,14 +16,10 @@ class Login {
     }
 
     @action
-    setCurrent(value: number) {
-        this.state.current = value;
+    setChangeType(value: boolean) {
+        this.state.isRegister = value
     }
 
-    //   @action
-    //   setTopPerson(value: boolean) {
-    //     this.state.topPerson = value;
-    //   }
 
 }
 export default new Login();
