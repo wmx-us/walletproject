@@ -105,11 +105,12 @@ const Home = () => {
         theme={{
           components: {
             Button: {
-              defaultBg: `linear-gradient(180deg, #241545 0%, #4B328E 100%),linear-gradient(180deg, #C7A4FF 0%, rgba(255, 255, 255, 0.4) 100%);`,
+              // defaultBg: `linear-gradient(180deg, #241545 0%, #4B328E 100%),linear-gradient(180deg, #C7A4FF 0%, rgba(255, 255, 255, 0.4) 100%);`,
               paddingInline: 7,
             },
             Modal:{
-              contentBg:"rgba(0,0,0,0)"
+              contentBg:"rgba(0,0,0,0)",
+              headerBg: "rgba(0,0,0,0)"
             }
           },
         }}
@@ -118,7 +119,7 @@ const Home = () => {
           title={<div className="modalOpen">项目方合作</div>}
           open={open}
           closeIcon={
-            <Button style={{ height: 30 }}>
+            <Button style={{ height: 30}}>
               <CloseOutlined />
             </Button>
           }

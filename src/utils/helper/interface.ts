@@ -1,14 +1,15 @@
 // * 请求响应参数(不包含data)
-export interface Result {
+export interface Result<T> {
   code: string;
   msg: string;
+  data: T ;
 }
 
 // * 请求响应参数(包含data)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface ResultData<T = any> extends Result {
-  data?: T | any;
-}
+// export interface ResultData<T = any> extends Result {
+//   data?: T | any;
+// }
 
 // * 分页响应参数
 export interface ResPage<T> {

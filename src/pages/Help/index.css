@@ -1,0 +1,18 @@
+.ant-collapse-borderless {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.ant-collapse-borderless >.ant-collapse-item>.ant-collapse-content {
+    background-color: #2D2D2D;
+}
+
+.ant-collapse .ant-collapse-item:last-child >.ant-collapse-content {
+    border-radius: 0;
+}
+.ant-collapse-borderless >.ant-collapse-item  {
+    border-bottom: 0px;
+}
+
+.ant-collapse-borderless >.ant-collapse-item>.ant-collapse-content>.ant-collapse-content-box {
+    padding-top: 16px;
+}

@@ -1,0 +1,10 @@
+.verfity {
+  /* cursor: pointer;
+      border-radius: 5px; */
+  .ant-input {
+    border-right: 0px;
+  }
+  .ant-input-group-addon {
+    background: transparent;
+  }
+}

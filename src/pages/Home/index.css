@@ -14,8 +14,9 @@
 .ant-anchor-wrapper .ant-anchor .ant-anchor-link {
   flex: 1;
 }
-.ant-modal {
-  padding: 20px 5px;
+
+.ant-modal-wrap .ant-modal {
+  padding: 50px 20px;
   background: url("../../assets/images/modalBg.png");
   background-repeat: no-repeat;
   background-size: cover;

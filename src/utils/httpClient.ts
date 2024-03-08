@@ -9,12 +9,13 @@ import { AxiosCanceler } from "./helper/axiosCancel";
 import { ResultEnum } from "@/enums/httpEnum";
 import { message } from "antd";
 import { checkStatus } from "./helper/checkStaus";
-import { ResultData } from "./helper/interface";
+import { Result } from "./helper/interface";
 import { showFullScreenLoading, tryHideFullScreenLoading } from "@/config/serviceLoading";
 import NProgress from "@/config/nprogress";
 import Global from "@/store/Global";
 import { LocalStorage } from "@/utils";
 import type { LoginPswResponseType } from "@/service/loginServes/loginServes.d";
+import { refreshToken } from "@/service/loginServes/api";
 // 封装网络请求库
 
 interface HttpRequestOptions {
@@ -38,7 +39,7 @@ class RequestHttp {
      * @description 请求拦截器
      */
     this.service.interceptors.request.use(
-      (_config) => {
+     async (_config) => {
         NProgress.start();
         // 将当前请求添加到 pendig 中
         axiosCanceler.addPending(_config);
@@ -46,6 +47,25 @@ class RequestHttp {
         (LocalStorage.getItem("userInfo") as LoginPswResponseType)?.token;
         // * 如果当前请求不需要显示 loading,在api服务中通过指定的第三个参数: { headers: { noLoading: true } }来控制不显示loading，参见loginApi
         _config.headers!.noLoading || showFullScreenLoading();
+
+        // 刷新token逻辑
+        const expiration = (LocalStorage.getItem("userInfo") as LoginPswResponseType)?.tokenExpireTime;
+        const passableInterface = ['/insland/login/refreshToken']
+        if(expiration && !passableInterface.includes(_config.url!)) {
+          const currentTime = Math.ceil(new Date().getTime() / 1000);
+          // 如果token 即将过期，刷新token
+          if(expiration - currentTime < 86400) {
+            try {
+              // 刷新成功，更新请求头的token
+              const data = await refreshToken();
+              _config.headers["token"] = data?.token
+            } catch (error) {
+              // 刷新token失败，跳转登录页
+              window.location.href = "./login";
+              return Promise.reject(error)
+            }
+          }
+        }
         return _config;
       },
       (error: AxiosError) => {
@@ -65,14 +85,14 @@ class RequestHttp {
         // 请求结束后移除本次请求
         axiosCanceler.removePending(config);
         tryHideFullScreenLoading();
-        // 登录失败
+
         if (data.code == ResultEnum.OVERDUE) {
-          // setToken("") 清空token
+          Global.clear()
           message.error(data?.msg);
           window.location.href = "./login"; //跳转到登录页
           return Promise.reject(data);
         }
-        // * 全局错误信息拦截（防止下载文件得时候返回数据流，没有code，直接报错）
+        // // * 全局错误信息拦截（防止下载文件得时候返回数据流，没有code，直接报错）
         if (data.code && data.code !== ResultEnum.SUCCESS) {
           message.error(data?.msg);
           return Promise.reject(data);
@@ -88,7 +108,6 @@ class RequestHttp {
         if (error.message.indexOf("timeout") !== -1)
           message.error("请求超时，请稍后再试");
         // 根据响应的错误状态码，做不同的处理
-        console.log('responseStatus', response)
         if (response) checkStatus(response.status);
         // 服务器结果都没有返回(可能服务器错误可能客户端断网) 断网处理:可以跳转到断网页面
         if (!window.navigator.onLine) window.location.hash = "/500";
@@ -98,16 +117,16 @@ class RequestHttp {
   }
 
   // * 常用请求方法封装
-  get<T>(url: string, params?: object, _object = {}): Promise<ResultData<T>> {
+  get<T =any>(url: string, params?: object, _object = {}): Promise<Result<T>> {
     return this.service.get(url, { params, ..._object });
   }
-  post<T>(url: string, params?: object, _object = {}): Promise<ResultData<T>> {
+  post<T = any>(url: string, params?: object, _object = {}): Promise<Result<T>> {
     return this.service.post(url, params, _object);
   }
-  put<T>(url: string, params?: object, _object = {}): Promise<ResultData<T>> {
+  put<T =any>(url: string, params?: object, _object = {}): Promise<Result<T>> {
     return this.service.put(url, params, _object);
   }
-  delete<T>(url: string, params?: any, _object = {}): Promise<ResultData<T>> {
+  delete<T = any>(url: string, params?: any, _object = {}): Promise<Result<T>> {
     return this.service.delete(url, { params, ..._object });
   }
 }

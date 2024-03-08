@@ -1,33 +1,36 @@
 import Gap from "@/components/Gap"
-import { Alert, Button, Col, ConfigProvider, Form, Input, Select, Space, Upload, message } from "antd"
+import { Alert, Button, Col, ConfigProvider, Form, Input, Select, Space, message } from "antd"
 
 import './verified.scoped.css'
 import { useEffect, useState } from "react"
 import { apiFirstCertified, apiGetCertified } from "@/service/user/api"
 
-const Verified = (() => {
+const Verified = () => {
 
   const [certified, setCertified] = useState({} as ApiUserResult.UserAuthRet)
-
+  const [authentication] = Form.useForm()
   const getCertified = async () => {
     try {
       const data = await apiGetCertified()
-
       setCertified(data)
-      console.log(certified);
-
+      authentication.setFieldsValue({
+        ...data
+      })
     } catch (error) {
-
+      message.error("er" + error)
     }
   }
 
-  const onFinish = async (values: ApiUserParams.UserAuthParams) => {
+  const onFinish = async (values:any) => {
     try {
-      await apiFirstCertified(values)
+      await apiFirstCertified({
+        idCardNumber:values?.idcardNumber,
+        name:values?.name
+      })
       message.success('认证成功')
       getCertified()
     } catch (error) {
-
+      message.error("er" + error)
     }
   }
 
@@ -57,10 +60,10 @@ const Verified = (() => {
         wrapperCol={{ span: 14 }}
         layout="vertical"
         onFinish={onFinish}
+        form={authentication}
       >
-        <Form.Item name="type" label="证件类型">
+        <Form.Item name="type" label="证件类型" initialValue={"0"}>
           <Select
-            defaultValue="0"
             options={[
               { value: '0', label: '中华人民共和国居民身份证' }
             ]}
@@ -123,7 +126,7 @@ const Verified = (() => {
       </Form>
     </Col>
   )
-})
+}
 
 
 export default Verified

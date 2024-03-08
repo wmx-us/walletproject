@@ -18,17 +18,17 @@ import type { PaginationProps } from "antd";
 import "./index.scoped.css";
 import { useNavigate } from "react-router-dom";
 import { TickListInfoVo } from "@/service/Inscription/interface";
-import dayjs from "dayjs";
+import { transTimestamp } from "@/utils";
 const Inscription = useInject(["Inscription"])((props) => {
   const { Inscription } = props;
   const { state } = Inscription;
   const { dataList, pagination } = state;
   const navigate = useNavigate();
   const onSearchHandler: SearchProps["onSearch"] = (value) => {
-    Inscription.getDataList({searchCondition: value });
+    Inscription.getDataList({ searchCondition: value });
   };
   const handlerChangepage: PaginationProps["onChange"] = (page, pageSize) => {
-    Inscription.getDataList({page,pageSize})
+    Inscription.getDataList({ page, pageSize });
   };
   const handlerDetail = (record: any) => {
     navigate("/inscription/detail", { state: { id: record.id } });
@@ -64,7 +64,7 @@ const Inscription = useInject(["Inscription"])((props) => {
       // colSpan: 2,
       dataIndex: "progress",
       align: "center",
-      width:150,
+      width: 150,
       render: (value) => {
         if (value === 100) {
           return <Button>完成铭刻</Button>;
@@ -103,36 +103,66 @@ const Inscription = useInject(["Inscription"])((props) => {
     {
       title: "创建时间",
       dataIndex: "createTime",
-    //   fixed: "right",
-      render:(value) => {
-        const time = dayjs.unix(value).format("YYYY-MM-DD HH:mm:ss")
-        return <p>{time}</p>
-      } 
+      //   fixed: "right",
+      render: (value) => {
+        const time = transTimestamp(value, "YYYY-MM-DD HH:mm:ss");
+        return <p>{time}</p>;
+      },
     },
     {
       title: "操作",
       dataIndex: "",
-    //   fixed: "right",
+      //   fixed: "right",
       render: (_, record) => {
-        return <Button onClick={() => handlerDetail(record)}>铭刻</Button>;
+        return (
+          <ConfigProvider
+            theme={{
+              components: {
+                Button: {
+                  // #4044FF
+                  colorPrimary: "#5E62FF",
+                  colorPrimaryHover: "#4D51FF",
+                },
+              },
+            }}
+          >
+            <Button type="primary" onClick={() => handlerDetail(record)}>铭刻</Button>
+          </ConfigProvider>
+        );
       },
     },
   ];
 
   useEffect(() => {
-    Inscription.getDataList(pagination)
+    Inscription.getDataList(pagination);
   }, []);
   return (
     <>
       <Row justify="center">
-        <Col span={18}>
+        <Col span={18} style={{ maxWidth: 1400 }}>
           <Gap height={50}></Gap>
-          <Search
-            placeholder="按区块/交易量信息进行搜索"
-            onSearch={onSearchHandler}
-            enterButton
-            style={{ maxWidth: 600 }}
-          />
+          <ConfigProvider
+            theme={{
+              components: {
+                Input: {
+                  colorBorder: "#A0A0A0",
+                  colorBorderSecondary: "red",
+                  colorBgContainer: "transparent",
+                  addonBg: "#5E62FF",
+                },
+                Button: {
+                  colorBorder: "#A0A0A0",
+                  colorBgContainer: "transparent",
+                },
+              },
+            }}
+          >
+            <Search
+              placeholder="按区块/交易量信息进行搜索"
+              onSearch={onSearchHandler}
+              style={{ maxWidth: 600 }}
+            />
+          </ConfigProvider>
           <Gap height={30} />
           <Space size={35}>
             <div className="inscript">铭文</div>
@@ -157,10 +187,7 @@ const Inscription = useInject(["Inscription"])((props) => {
           <ConfigProvider
             theme={{
               components: {
-                Table: {
-                  headerBg: "transparent",
-                  borderColor: "#494949",
-                },
+                Table: {},
               },
               token: {
                 colorBgContainer: "transparent",
@@ -171,9 +198,9 @@ const Inscription = useInject(["Inscription"])((props) => {
               rowKey="id"
               columns={columns}
               pagination={{
-                current:pagination.page,
-                pageSize:pagination.pageSize,
-                total:pagination.total,
+                current: pagination.page,
+                pageSize: pagination.pageSize,
+                total: pagination.total,
                 showTotal: (total) => `总共 ${total} 条`,
                 onChange: handlerChangepage,
               }}

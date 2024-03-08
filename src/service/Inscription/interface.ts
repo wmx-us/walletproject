@@ -18,6 +18,11 @@ export interface reqParamsRequest {
    * 查询内容（可以为空）
    */
   searchCondition?: string;
+
+  /**
+   * tickId 可选
+   */
+  tickId?: string;
 }
 
 /**
@@ -41,7 +46,7 @@ export interface resResult {}
  * R«PageRet«TickListInfoVo»»
  */
 export interface resResultResponse {
-  code?: number | null;
+  code?: number 
   data?: PageRetTickListInfoVo;
   msg?: null | string;
   [property: string]: any;
@@ -72,11 +77,11 @@ export interface TickListInfoVo {
   /**
    * 创建时间
    */
-  createTime?: number | null;
+  createTime?: number 
   /**
    * 持有人数
    */
-  holders?: number | null;
+  holders?: number 
   /**
    * id
    */
@@ -88,15 +93,15 @@ export interface TickListInfoVo {
   /**
    * 已铭刻数
    */
-  mintCount?: number | null;
+  mintCount?: number 
   /**
    * 进度
    */
-  progress?: number | null;
+  progress?: number 
   /**
    * 供应
    */
-  supply?: number | null;
+  supply?: number 
   /**
    * tick
    */
@@ -104,7 +109,7 @@ export interface TickListInfoVo {
   /**
    * 交易数量
    */
-  transactions?: number | null;
+  transactions?: number 
   [property: string]: any;
 }
 
@@ -115,15 +120,15 @@ export interface detailListRequest {
   /**
    * 是否正序排序 false：倒叙 ture: 正序 默认为倒叙
    */
-  orders?: OrderParams[] | null;
+  orders?: OrderParams[] 
   /**
    * 页码
    */
-  page?: number | null;
+  page?: number 
   /**
    * 每页数量
    */
-  pageSize?: number | null;
+  pageSize?: number 
   /**
    * hashID
    */
@@ -247,4 +252,29 @@ export interface TickTransferListInfoVo {
    * 交易时间
    */
   transferTime?: number;
+}
+
+
+export interface TickHolderRankListInfoVo {
+  /**
+   * 地址
+   */
+  address?: string;
+  /**
+   * 持有数
+   */
+  num?: number 
+  /**
+   * 持有率
+   */
+  rate?: number 
+}
+
+export interface TickHolder extends TickHolderRankListInfoVo {
+  id?:number
+}
+
+export interface mapK {
+  value?: number,
+  name?: string,
 }

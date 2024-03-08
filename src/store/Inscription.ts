@@ -3,10 +3,12 @@ import {
   getDataList,
   getDatailData,
   getDatailList,
+  holderRankList,
   payHandler,
 } from "@/service/Inscription/api";
 import {
   MintInfoVo,
+  TickHolder,
   TickListInfoVo,
   TickTransferListInfoVo,
   detailInfoRep,
@@ -20,13 +22,20 @@ class Inscription {
   state: {
     dataList: TickListInfoVo[];
     pagination: typePagination;
+    paginationDetail: typePagination;
     datailData: detailInfoRep;
     datailDataList: TickTransferListInfoVo[];
     createMintData: MintInfoVo;
     orderId: string;
+    percentage: any;
+    percentageList: TickHolder[];
   } = {
     dataList: [],
     pagination: {
+      page: 1,
+      pageSize: 10,
+    },
+    paginationDetail: {
       page: 1,
       pageSize: 10,
     },
@@ -35,6 +44,8 @@ class Inscription {
     datailDataList: [],
     createMintData: {},
     orderId: "",
+    percentage: [],
+    percentageList: [],
   };
 
   constructor() {
@@ -64,20 +75,46 @@ class Inscription {
 
   /**
    *  铭文详情查询
-   * @param {id} params
+   * @param {reqParamsRequest} params
    */
   @action
-  async getDatailData(params: string) {
+  async getDatailData(params: reqParamsRequest, isRefrsh?: boolean) {
     try {
-      const [datailData, datailDataList] = await Promise.all([
-        getDatailData(params),
-        getDatailList({ ...this.state.pagination, tickId: params }),
-      ]);
-      console.log("data", datailData, datailDataList);
-      runInAction(() => {
-        this.state.datailData = datailData;
-        this.state.datailDataList = datailDataList.list;
-      });
+      if (!isRefrsh) {
+        const [datailData, datailDataList, holdersList] = await Promise.all([
+          getDatailData(params.tickId!),
+          getDatailList({
+            ...this.state.paginationDetail,
+            tickId: params?.tickId,
+          }),
+          holderRankList(params.tickId!),
+        ]);
+        const percentage = holdersList.map((item) => ({
+          value: item?.rate,
+          name: item?.num,
+        }));
+        const percentageList = holdersList.map((item, index) => ({
+          ...item,
+          id: index,
+        }));
+        runInAction(() => {
+          this.state.datailData = datailData;
+          this.state.datailDataList = datailDataList.list;
+          this.state.paginationDetail.total = datailDataList.total;
+          this.state.percentage = percentage;
+          this.state.percentageList = percentageList;
+        });
+      } else {
+        this.state.paginationDetail.page = params.page ? params.page : 1;
+        const data = await getDatailList({
+          tickId: params?.tickId,
+          page: this.state.paginationDetail.page,
+        });
+        runInAction(() => {
+          this.state.datailDataList = data?.list;
+          this.state.paginationDetail.total = data?.total;
+        });
+      }
     } catch (error) {
       console.log("error", error);
     }
@@ -109,7 +146,7 @@ class Inscription {
       const data = await payHandler(id);
       if (data) {
         message.success("支付成功！");
-        this.state.orderId = data.orderId;
+        this.state.orderId = data;
         return data;
       }
     } catch (error) {

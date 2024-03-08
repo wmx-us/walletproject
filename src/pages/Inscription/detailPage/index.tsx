@@ -15,10 +15,12 @@ import type { DescriptionsProps } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { ColumnsType } from "antd/es/table";
 import EchartsWrapper from "@/components/EchartsCom";
-import { DataDetail, DataDetailColType, options } from "../constant";
 import { useEffect } from "react";
 import { useInject } from "@/hooks/inject";
-import { LocalStorage } from "@/utils";
+import { LocalStorage, truncateString } from "@/utils";
+import dayjs from "dayjs";
+import { TickHolder, TickTransferListInfoVo } from "@/service/Inscription/interface";
+import type { PaginationProps } from "antd";
 interface DataType {
   id: number;
   address: string;
@@ -71,6 +73,9 @@ const DetailIndex = useInject(["Inscription", "Global"])((props) => {
       props.Global.state?.token && LocalStorage.getItem("userInfo");
     if (!isLogin) return message.error("请先登录！");
     navigate("/inscription/createInscription", { state: { id } });
+  };
+  const handlerChangepage: PaginationProps["onChange"] = (page, pageSize) => {
+    // Inscription.getDataList({page,pageSize})
   };
   const desItemDetail: DescriptionsProps["items"] = [
     {
@@ -130,7 +135,7 @@ const DetailIndex = useInject(["Inscription", "Global"])((props) => {
       },
     },
   ];
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<TickHolder> = [
     {
       title: "#",
       dataIndex: "id",
@@ -143,77 +148,79 @@ const DetailIndex = useInject(["Inscription", "Global"])((props) => {
     },
     {
       title: "数量",
-      dataIndex: "number",
+      dataIndex: "num",
       align: "center",
     },
   ];
-  const Holder: DataType[] = [
-    {
-      id: 1,
-      address: "56sdfadA...SDAsdqw",
-      number: "20K",
+  const options: echarts.EChartsOption = {
+    title: {
+      text: '持有者排行榜占比',
+      subtext: '数量占比率',
+      left: 'center',
     },
-    {
-      id: 2,
-      address: "56sdfadA...SDAsdqw",
-      number: "20K",
+    tooltip: {
+      trigger: 'item',
     },
-    {
-      id: 3,
-      address: "56sdfadA...SDAsdqw",
-      number: "30K",
+    legend: {
+      orient: 'vertical',
+      left: 'left',
     },
+    series: [
+      {
+        name: 'Access From',
+        type: 'pie',
+        radius: '50%',
+        data: state.percentage,
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+      },
+    ],
+  };
+  const DetailCol: ColumnsType<TickTransferListInfoVo> = [
     {
-      id: 4,
-      address: "56sdfadA...SDAsdqw",
-      number: "40K",
-    },
-    {
-      id: 5,
-      address: "56sdfadA...SDAsdqw",
-      number: "50K",
-    },
-  ];
-  const DetailCol: ColumnsType<DataDetailColType> = [
-    {
-      title: "#",
+      title: "序号",
       dataIndex: "id",
       align: "center",
     },
     {
-      title: "哈希",
-      dataIndex: "hash",
+      title: "交易哈希",
+      dataIndex: "transferHash",
       align: "center",
+      render: (value) => <a>{truncateString(value, 20)}</a>,
     },
     {
-      title: "所属块",
-      dataIndex: "owningblock",
-      align: "center",
-    },
-    {
-      title: "交易板块ID",
-      dataIndex: "dealId",
+      title: "所属块高",
+      dataIndex: "blockNumber",
       align: "center",
     },
     {
       title: "交易时间",
-      dataIndex: "dealTime",
+      dataIndex: "transferTime",
+      align: "center",
+      render: (value) => {
+        const time = dayjs.unix(value).format("YYYY-MM-DD HH:mm:ss");
+        return <p>{time}</p>;
+      },
+    },
+    {
+      title: "接收者",
+      dataIndex: "to",
       align: "center",
     },
     {
       title: "发送者",
-      dataIndex: "sendUser",
-      align: "center",
-    },
-    {
-      title: "接受者",
-      dataIndex: "acceptUser",
+      dataIndex: "from",
       align: "center",
     },
   ];
 
   useEffect(() => {
-    Inscription.getDatailData(id);
+    Inscription.getDatailData({tickId:id});
   }, []);
   return (
     <>
@@ -269,7 +276,7 @@ const DetailIndex = useInject(["Inscription", "Global"])((props) => {
           <Card title="顶级持有者" style={{ background: "#222531" }}>
             <Row gutter={18}>
               <Col span={16}>
-                <Table rowKey="id" dataSource={Holder} columns={columns} />
+                <Table rowKey="id"  pagination={false} dataSource={Inscription.state.percentageList} columns={columns} />
               </Col>
               <Col span={8}>
                 <EchartsWrapper options={options} style={{ height: "400px" }} />
@@ -277,7 +284,17 @@ const DetailIndex = useInject(["Inscription", "Global"])((props) => {
             </Row>
           </Card>
           <Gap height={20} />
-          <Table rowKey="id" columns={DetailCol} dataSource={DataDetail} />
+          <Table
+            rowKey="id"
+            columns={DetailCol}
+            dataSource={state.datailDataList}
+            style={{ color: "transparent" }}
+            scroll={{ x: 1200 }}
+            pagination= {{
+              onChange:handlerChangepage,
+              showTotal: (total) => `总共 ${total} 条`,
+            }}
+          />
         </Col>
       </Row>
     </>

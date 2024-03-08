@@ -1,0 +1,9 @@
+.ant-tabs-top >.ant-tabs-nav::before {
+    border-bottom: transparent;
+}
+
+.ant-tabs .ant-tabs-tab-active {
+    background: #121C38;
+    border-radius: 6px;
+    padding: 9px 9px;
+}

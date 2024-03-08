@@ -5,7 +5,8 @@
 }
 .layout {
   flex: 1;
-  background: linear-gradient(0deg, #0f1736, #0f1736), linear-gradient(0deg, #5e62ff, #5e62ff);
+  background: linear-gradient(0deg, #0f1736, #0f1736),
+    linear-gradient(0deg, #5e62ff, #5e62ff);
   border: 1px solid #5e62ff;
   .label {
     font-size: 15px;
@@ -28,5 +29,190 @@
       font-weight: 400;
       color: rgba(255, 255, 255, 0.9);
     }
+  }
+}
+
+
+.Avatar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 35px; 
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  /* opacity: 0.2; */
+  /* background: linear-gradient(98deg, #214489 8.84%, #5f328e 88.23%); */
+  height: 95px;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 95px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background: linear-gradient(98deg, #214489 8.84%, #5f328e 88.23%);
+    z-index: -1; /* 使伪元素在底部 */
+  }
+  .Avatar-left {
+    span {
+      font-size: 16px;
+      padding-left: 15px;
+      color: #ffffff;
+    }
+  }
+  .Avatar-right {
+    font-size: 12px;
+    color: #ffffff;
+    span {
+      font-size: 16px;
+    }
+  }
+}
+
+.selectPay {
+  padding: 33px 42px;
+  background: #323546;
+  .selectPay-title {
+    font-family: Segoe UI;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 10px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #ffffff;
+  }
+
+  .selectPay-card {
+    width: 176px;
+    height: 87px;
+    border-radius: 5px;
+    border: 0.5px solid #6566bc;
+    background: rgba(94, 98, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    position: relative;
+
+    &.hot {
+      &::before {
+        content: "HOT";
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: linear-gradient(90.54deg, #AD6CFF 10.24%, #654DF7 81.99%); /* 设置背景颜色 */
+        color: #fff; /* 设置文字颜色 */
+        padding: 1px 20px; /* 调整内边距 */
+        font-size: 12px;
+        border-top-right-radius: 5px; /* 右上角圆角 */
+        border-bottom-left-radius: 5px; /* 左下角圆角 */
+      }
+    }
+
+    &.active {
+      border: 1.33px solid #5E62FF
+    }
+
+
+    .selectPay-gas {
+      font-family: DIN;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 63px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #FFFFFF;
+      padding-left: 15px;
+
+      span {
+        font-family: Roboto;
+        font-size: 8px;
+        font-weight: 400;
+        line-height: 11px;
+        letter-spacing: 0px;
+        text-align: left;
+      }
+    }
+    .selectPay-mone {
+      font-family: PingFang SC;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 21px;
+      letter-spacing: 0em;
+      padding-right: 10px;
+      text-align: right;
+      color: #FFFFFF;
+      height: 24px;
+      background: linear-gradient(268.1deg, rgba(94, 98, 255, 0.5) 9.01%, rgba(155, 158, 255, 0.5) 82.59%);
+    }
+  }
+}
+
+
+.footer {
+  display: flex;
+  background: #222531;
+  padding: 3% 0px; 
+  padding-bottom: 25px;
+  .footer-left {
+    width: 70%;
+    display: flex;
+    padding: 0px 0px 0px 65px;
+
+    .footer-left-text {
+      padding-left: 46px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .footer-left-text-pay {
+        font-family: Segoe UI;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 10px;
+        letter-spacing: 0px;
+        text-align: left;
+
+        p {
+          display: inline;
+          color: #9A9DFF;
+        }
+
+        span {
+          font-family: DIN;
+          font-size: 30px;
+          font-weight: 500;
+          line-height: 36px;
+          letter-spacing: 0em;
+          text-align: left;
+          color: #9A9DFF;
+
+        }
+      }
+      .footer-left-text-image {
+        padding-top: 20px;
+
+        span {
+          font-family: PingFang SC;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 17px;
+          letter-spacing: 0em;
+          text-align: left;
+          color: #FFFFFF;
+          padding-left: 5px;
+        }
+      }
+    }
+  }
+
+  .footer-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 60px;
   }
 }

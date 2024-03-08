@@ -1,99 +1,140 @@
-import Gap from "@/components/Gap"
-import { Button, Col, ConfigProvider, Table } from "antd"
+import Gap from "@/components/Gap";
+import { Col, ConfigProvider, Table, message } from "antd";
 import { ColumnsType } from "antd/es/table";
 
-import "./userInscription.scoped.css"
-import { useNavigate } from "react-router-dom";
+import "./userInscription.scoped.css";
+// import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { fetchDataInscript } from "@/service/user/api";
+import type { PaginationProps } from "antd";
+import { CaretDownOutlined } from "@ant-design/icons";
 
-interface DataType {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-  tags: string;
+interface MineTickHoldsVo {
+  /**
+   * 链上地址
+   */
+  chainAddress?: string;
+  /**
+   * 持有数
+   */
+  num?: number;
+  /**
+   * 铭文
+   */
+  tick?: string;
 }
 
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park',
-    tags: 'nice',
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 1 Lake Park',
-    tags: 'loser',
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park',
-    tags: 'teacher',
-  },
-];
-
 const UserInscription = () => {
+  const [dataInscript, setData] = useState<MineTickHoldsVo[]>([]);
+  const [pagination, setPage] = useState<typePagination>({
+    page: 1,
+    pageSize: 10,
+  });
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate();
 
-  const columns: ColumnsType<DataType> = [
+  const columns: ColumnsType<MineTickHoldsVo> = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: (
+        <>
+          # <CaretDownOutlined />
+        </>
+      ),
+      dataIndex: "id",
+      key: "id",
+    },
+    {
+      title: "铭文",
+      dataIndex: "tick",
+      key: "tick",
       render: (text) => <a>{text}</a>,
     },
+
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: "持有数",
+      dataIndex: "num",
+      key: "num",
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: "链上地址",
+      key: "chainAddress",
+      dataIndex: "chainAddress",
+      render: (text) => <a>{text}</a>,
     },
-    {
-      title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags'
-    },
-    {
-      title: '操作',
-      key: 'action',
-      align: 'center',
-      render: (_, record) => (
-        <Button type="primary" shape="round" danger onClick={give}>转赠</Button>
-      ),
-    },
+    // {
+    //   title: "操作",
+    //   key: "action",
+    //   align: "center",
+    //   render: (_, record) => (
+    //     <Button type="primary" shape="round" danger onClick={give}>
+    //       转赠
+    //     </Button>
+    //   ),
+    // },
   ];
 
-  const give = () => {
-    navigate("/give")
-  }
+  // const give = () => {
+  //   navigate("/give");
+  // };
+  const handlerBlockChangepage: PaginationProps["onChange"] = (
+    page,
+    pageSize,
+  ) => {
+    setPage({
+      page,
+      pageSize,
+    });
+  };
+  const getData = async () => {
+    try {
+      const data = await fetchDataInscript({ ...pagination });
+      if (data && data?.list) {
+        const newList = data?.list.map((item, index) => ({
+          ...item,
+          id: index + 1,
+        }));
+        setData(newList);
+      }
+      console.log("wode ", data);
+    } catch (error) {
+      message.error("er" + error);
+    }
+  };
 
+  useEffect(() => {
+    getData();
+  }, [pagination.page, pagination.pageSize]);
   return (
     <Col span={16} style={{ marginLeft: 60 }}>
       <Gap height={110}></Gap>
       <p className="title">我的铭文</p>
       <Gap height={30}></Gap>
-      <ConfigProvider theme={{
-        components: {
-          Table: {
-            headerBg: '#181D29',
-            colorBgContainer: '#222531'
-          }
-        }
-      }}>
-        <Table columns={columns} dataSource={data} />
+      <ConfigProvider
+        theme={{
+          components: {
+            Table: {
+              headerBg: "#181D29",
+              colorBgContainer: "#222531",
+            },
+          },
+        }}
+      >
+        <Table
+          rowKey="id"
+          columns={columns}
+          dataSource={dataInscript}
+          pagination={{
+            showSizeChanger: true,
+            current: pagination.page,
+            pageSize: pagination.pageSize,
+            total: pagination.total,
+            showTotal: (total) => `总共 ${total} 条`,
+            onChange: handlerBlockChangepage,
+          }}
+        />
       </ConfigProvider>
     </Col>
-  )
-}
+  );
+};
 
-export default UserInscription
+export default UserInscription;

@@ -2,6 +2,7 @@ import { http } from "@/utils";
 import {
   MintInfoVo,
   PageRetTickListInfoVo,
+  TickHolderRankListInfoVo,
   detailInfoRep,
   detailListIprops,
   detailListRequest,
@@ -25,13 +26,16 @@ export const getDataList = async (
 
 /**
  *
- * @param id 详情页
+ * @param tickId 详情页
  */
-export const getDatailData = async (id: string): Promise<detailInfoRep> => {
+export const getDatailData = async (tickId: string): Promise<detailInfoRep> => {
   try {
-    const { data } = await http.post("/insland/inscription/tick/info", {
-      tickId: id,
-    });
+    const { data } = await http.post<detailInfoRep>(
+      "/insland/inscription/tick/info",
+      {
+        tickId: tickId,
+      },
+    );
     return data;
   } catch (error) {
     return Promise.reject(error);
@@ -42,11 +46,25 @@ export const getDatailData = async (id: string): Promise<detailInfoRep> => {
  *
  * @param params 详情页列表
  */
-export const getDatailList = async (params: detailListRequest): Promise<detailListIprops> => {
+export const getDatailList = async (
+  params: detailListRequest,
+): Promise<detailListIprops> => {
   try {
     const { data } = await http.post(
       "/insland/inscription/tick/trans/list",
       params,
+    );
+    return data;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const holderRankList = async (tickId: string) => {
+  try {
+    const { data } = await http.post<TickHolderRankListInfoVo[]>(
+      "/insland/inscription/tick/holderRankList",
+      { tickId },
     );
     return data;
   } catch (error) {
@@ -73,11 +91,9 @@ export const createMintInfo = async (tickId: string): Promise<MintInfoVo> => {
  *
  * @param tickId 支付接口
  */
-export const payHandler = async (
-  tickId: string,
-): Promise<{ orderId: string }> => {
+export const payHandler = async (tickId: string)=> {
   try {
-    const { data } = await http.post<MintInfoVo>("/insland/inscription/mint", {
+    const { data } = await http.post("/insland/inscription/mint", {
       tickId,
     });
     return data;

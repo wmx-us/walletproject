@@ -50,6 +50,10 @@ export const routerArray: Array<RouteObject> = [
                 element: lazyLoad(React.lazy(() => import("@/pages/Overview/details")))
             },
             {
+                path: "/overview/blockdetails",
+                element: lazyLoad(React.lazy(() => import("@/pages/Overview/blockDetail")))
+            },
+            {
                 path:"/help",
                 meta: {
                     title:"帮助"
